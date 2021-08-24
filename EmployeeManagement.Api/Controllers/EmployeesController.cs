@@ -53,5 +53,33 @@ namespace EmployeeManagement.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
+        {
+            try
+            {
+                if (employee == null)
+                    return BadRequest();
+
+                var emp = employeeRepository.GetEmployeeByEmail(employee.Email);
+
+                if(emp != null)
+                {
+                    ModelState.AddModelError("email", "Employee email already in use");
+                    return BadRequest(ModelState);
+                }
+
+                var createdEmployee = await employeeRepository.AddEmployee(employee);
+
+                return CreatedAtAction(nameof(GetEmployee),
+                    new { id = createdEmployee.EmployeeId }, createdEmployee);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
+        }
     }
 }
