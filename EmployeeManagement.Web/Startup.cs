@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
+using EmployeeManagement.Web.Models;
 
 namespace EmployeeManagement.Web
 {
@@ -29,6 +31,7 @@ namespace EmployeeManagement.Web
             services.AddRazorPages();
             services.AddCors();
             services.AddServerSideBlazor();
+            services.AddAutoMapper(typeof(EmployeeProfile));
             services.AddHttpClient <IEmployeeService, EmployeeService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44386/");
