@@ -18,12 +18,17 @@ namespace EmployeeManagement.Web.Services
 
         public async Task<Employee> GetEmployee(int id)
         {
-            return await httpClient.GetFromJsonAsync<Employee>($"api/employees/{id}");
+            return await httpClient.GetJsonAsync<Employee>($"api/employees/{id}");
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            return await httpClient.GetFromJsonAsync<Employee[]>("api/employees");
+            return await httpClient.GetJsonAsync<Employee[]>("api/employees");
+        }
+
+        public async Task<Employee> UpdateEmployee(Employee updatedEmployee)
+        {
+            return await httpClient.PutJsonAsync<Employee>("api/employees", updatedEmployee);
         }
     }
 }
