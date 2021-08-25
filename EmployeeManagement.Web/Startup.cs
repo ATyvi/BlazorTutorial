@@ -27,6 +27,7 @@ namespace EmployeeManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddCors();
             services.AddServerSideBlazor();
             services.AddHttpClient <IEmployeeService, EmployeeService>(client =>
             {
@@ -39,7 +40,7 @@ namespace EmployeeManagement.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseCors(a => a.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(b => true));
             }
             else
             {
