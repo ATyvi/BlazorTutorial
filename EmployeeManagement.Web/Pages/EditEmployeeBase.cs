@@ -86,5 +86,9 @@ namespace EmployeeManagement.Web.Pages
             await EmployeeService.DeleteEmployee(Employee.EmployeeId);
             NavigationManager.NavigateTo("/");
         }
+        protected PragimTech.Components.ConfirmBase DeleteConfirmation { get; set; }
+
+      
+
     }
 }
