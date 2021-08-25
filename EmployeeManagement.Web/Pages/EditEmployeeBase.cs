@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using EmployeeManagement.Web.Models;
 using EmployeeManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -14,8 +15,10 @@ namespace EmployeeManagement.Web.Pages
 
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
-        public Employee Employee { get; set; } = new Employee();
-        
+        private Employee Employee { get; set; } = new Employee();
+
+        public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
+
         [Inject]
         public IDepartmentService DepartmentService { get; set; }
 
@@ -30,7 +33,13 @@ namespace EmployeeManagement.Web.Pages
         {
             Employee = await EmployeeService.GetEmployee(int.Parse(Id));
             Departments = (await DepartmentService.GetDepartments()).ToList();
-            DepartmentId = Employee.DepartmentId.ToString();
+
+
+        }
+
+        protected void HandleValidSubmit()
+        {
+
         }
     }
 }
